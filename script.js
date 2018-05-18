@@ -40,11 +40,15 @@ function drawDonationChart() {
         chart.draw(data, options);
       }   
 
+
+//onclick for button
 function showTimelineChart(){
-  drawStudyTimeline()
+  //get color from input, pass to draw chart function
+  let color = document.getElementById("color").value
+  drawStudyTimeline(color)
 }
 
-function drawStudyTimeline(){
+function drawStudyTimeline(userColor){
   var container = document.getElementById('study-timeline');
         var chart = new google.visualization.Timeline(container);
         var dataTable = new google.visualization.DataTable();
@@ -56,9 +60,14 @@ function drawStudyTimeline(){
           [ 'General Ed', new Date(2018, 8, 1), new Date(2019, 5, 1) ],
           [ 'Choose Major', new Date(2019, 5, 1),  new Date(2019, 7, 1) ],
           [ 'Adams',      new Date(2019, 8, 1),  new Date(2020, 4, 1) ],
-          [ 'Jefferson',  new Date(2020, 5, 1),  new Date(2022, 4, 1) ]]);
+          [ 'Jefferson',  new Date(2020, 5, 1),  new Date(2022, 4, 1) ]
+        ]);
+  
+        var options = {
+          timeline: { singleColor: userColor}
+        }
 
-        chart.draw(dataTable);
+        chart.draw(dataTable, options);
       }
 
 function drawStudyBar() {
