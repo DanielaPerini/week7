@@ -1,10 +1,69 @@
 console.log("let's build some charts!")
+
+
 // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart', 'bar']});
+google.charts.load('current', {'packages':['corechart', 'bar', 'timeline']});
 
       // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawDonationChart);
+      google.charts.setOnLoadCallback(drawStudyTimeline);
+      google.charts.setOnLoadCallback(drawStudyBar);
+
       google.charts.setOnLoadCallback(drawChart1);      
       google.charts.setOnLoadCallback(drawChart2);
+
+function drawDonationChart() {
+  var data = google.visualization.arrayToDataTable([
+          ['Category', 'Expenditure'],
+          ['Administrative costs',     4],
+          ['Fundraising',      16],
+          ['Youth Programs',  36],
+          ['Adult Programs', 44]
+        ]);
+
+        var options = {
+          title: 'My Daily Activities',
+          pieHole: 0.2,
+          slices: [
+            {color: '#8AD1C2'},
+            {color: '#9F8AD1'},
+            {color: '#D18A99'},
+            {color: '#BCD18A'}
+          ],
+          fontSize: 24,
+          height: 800,
+          width: 800,
+          legend: 'top'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donation-chart'));
+
+        chart.draw(data, options);
+      }   
+
+
+
+function drawStudyTimeline(){
+  var container = document.getElementById('study-timeline');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn({ type: 'string', id: 'Phase of Study' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTable.addRows([
+          [ 'General Ed', new Date(2018, 8, 1), new Date(2019, 5, 1) ],
+          [ 'Choose Major', new Date(2019, 5, 1),  new Date(2019, 7, 1) ],
+          [ 'Adams',      new Date(2019, 8, 1),  new Date(2020, 4, 1) ],
+          [ 'Jefferson',  new Date(2020, 5, 1),  new Date(2022, 4, 1) ]]);
+
+        chart.draw(dataTable);
+      }
+
+function drawStudyBar() {
+  
+}
+
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
